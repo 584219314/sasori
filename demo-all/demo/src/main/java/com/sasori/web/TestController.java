@@ -1,13 +1,14 @@
-package com.sasori;
+package com.sasori.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller("test")
+@Controller
+@RequestMapping("test")
 public class TestController {
 	
-	@RequestMapping(value="demo")
+	@RequestMapping("/demo")
 	public String test(){
-		return "/page/test";
+		return "test";
 	}
 }

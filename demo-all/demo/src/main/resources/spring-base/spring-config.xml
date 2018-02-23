@@ -13,7 +13,6 @@
     http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
-
 	<!-- 加载配置属性文件 -->
 	<context:property-placeholder
 		ignore-unresolvable="true" location="classpath:velocity.properties" />
@@ -22,14 +21,19 @@
 		ignore-unresolvable="true" location="classpath:log4j.properties" />
 
 
-	<!-- 开启异步任务（同时开启定时器注解扫描） -->
-	<task:annotation-driven />
-
-	<!-- 使用@AspectJ风格的切面声明 -->
-	<!-- <aop:aspectj-autoproxy/> -->
-
+	<!-- 开启springMVC注解支持 -->
+	<mvc:annotation-driven />
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+	<context:component-scan base-package="com.sasori.web">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+		<context:include-filter type="annotation"
+			expression="org.springframework.web.bind.annotation.ControllerAdvice" />
+	</context:component-scan>
 	<!-- 使用Annotation自动注册Bean -->
-	<!-- 在主容器中不扫描@Controller注解，在SpringMvc中只扫描@Controller注解 -->
 	<context:component-scan base-package="com.sasori" />
 
 	<!-- 引入Mybatis配置 -->
