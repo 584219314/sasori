@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE generatorConfiguration
+    PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+    "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<!--数据库驱动包的位置 -->
+	<classPathEntry
+		location="C:/Users/Administrator/.m2/repository/mysql/mysql-connector-java/5.1.6/mysql-connector-java-5.1.6.jar" />
+	<context id="my" targetRuntime="MyBatis3">
+		<commentGenerator>
+			<property name="suppressDate" value="false" />
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://127.0.0.1:3306/test" userId="root"
+			password="123456" />
+		<!-- 生成模型的包名和位置 -->
+		<javaModelGenerator targetPackage="com.sasori.model"
+			targetProject="demo-model">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+		<!-- 生成的映射文件包名和位置:特别注意这里，因为idea必须读取resources下面的文件 -->
+ 		<sqlMapGenerator targetPackage="com.sasori.dao"
+			targetProject="demo-service">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+		<!-- 生成DAO的包名和位置 -->
+		<javaClientGenerator targetPackage="com.sasori.dao"
+			targetProject="demo-service" type="XMLMAPPER">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+		<!-- 需要生成的表的名字和将生成的对应的对象名) -->
+		<table tableName="crawler_data" domainObjectName="CrawlerData"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+		</table>
+
+	</context>
+</generatorConfiguration>
