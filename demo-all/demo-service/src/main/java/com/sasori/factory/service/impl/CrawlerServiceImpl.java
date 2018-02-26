@@ -9,6 +9,7 @@ import com.sasori.req.CrawlerDocToDataReq;
 import com.sasori.req.CrawlerSetDataReq;
 import com.sasori.req.FlipReq;
 import com.sasori.req.LoginReq;
+import com.sasori.req.MainReq;
 import com.sasori.res.CrawlerDocToDataRes;
 import com.sasori.res.CrawlerSetDataRes;
 import com.sasori.res.FlipRes;
@@ -28,5 +29,9 @@ public class CrawlerServiceImpl implements CrawlerService{
 	@Override
 	public FlipRes flip(FlipReq req) {
 		return crawlerFactory.getServiceImpl(req.getCode()).flip(req);
+	}
+	@Override
+	public void main(MainReq req) throws Exception {
+		crawlerFactory.getServiceImpl(req.getCode()).main(req);
 	}
 }

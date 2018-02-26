@@ -4,6 +4,7 @@ import com.sasori.req.CrawlerDocToDataReq;
 import com.sasori.req.CrawlerSetDataReq;
 import com.sasori.req.FlipReq;
 import com.sasori.req.LoginReq;
+import com.sasori.req.MainReq;
 import com.sasori.res.CrawlerDocToDataRes;
 import com.sasori.res.CrawlerSetDataRes;
 import com.sasori.res.FlipRes;
@@ -26,5 +27,11 @@ public interface CrawlerService {
 	 * 获取翻页链接
 	 */
 	FlipRes flip(FlipReq req);
+	
+	/**
+	 * 整体流程
+	 * @throws Exception 
+	 */
+	void main(MainReq req) throws Exception;
 	
 }

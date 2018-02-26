@@ -1,7 +1,8 @@
 package com.sasori.enums;
 
 public enum CrawlerEnum {
-    DJ("dj", "京东"), TB("tb", "淘宝"), YMX("ymx", "亚马逊"), WB("wb", "微博"),JYM("jym", "交易猫");  
+    DJ("dj", "京东"), TB("tb", "淘宝"), YMX("ymx", "亚马逊"), WB("wb", "微博"),JYM("jym", "交易猫"),
+    ZH("zh", "知乎");  
     // 成员变量  
     private String code;  
     private String name;  

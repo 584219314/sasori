@@ -82,4 +82,9 @@ public class DjServiceImpl extends AbstractCrawlerImpl{
 		return null;
 	}
 
+	@Override
+	protected String getUrl() {
+		return "http://search.jd.com/Search?keyword=Python&enc=utf-8&book=y&wq=Python&pvid=33xo9lni.p4a1qb";
+	}
+
 }

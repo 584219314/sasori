@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.Connection.Method;
@@ -11,15 +13,30 @@ import org.jsoup.Connection.Response;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.sasori.crawler.util.URLFecter;
+import com.sasori.dao.CrawlerDataMapper;
+import com.sasori.enums.CrawlerEnum;
 import com.sasori.factory.CrawlerFactory;
 import com.sasori.factory.service.CrawlerService;
+import com.sasori.req.CrawlerDocToDataReq;
+import com.sasori.req.CrawlerSetDataReq;
+import com.sasori.req.FlipReq;
 import com.sasori.req.LoginReq;
+import com.sasori.req.MainReq;
+import com.sasori.res.CrawlerDocToDataRes;
+import com.sasori.res.FlipRes;
 import com.sasori.res.LoginRes;
 
 public abstract class AbstractCrawlerImpl implements CrawlerService,InitializingBean{
 	protected abstract String getCode();
+	
+	protected abstract String getUrl();
+	@Autowired
+	CrawlerDataMapper crawlerDataMapper;
 	@Autowired
 	private CrawlerFactory crawlerFactory;
+	@Autowired
+	private CrawlerService crawlerService;
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		crawlerFactory.setServiceImpl(getCode(), this);		
@@ -52,5 +69,31 @@ public abstract class AbstractCrawlerImpl implements CrawlerService,Initializing
 		} 
 		return res;
 	}
-
+	public void main(MainReq reqMain) throws Exception{
+		String code = reqMain.getCode();
+		// 初始化一个httpclient
+		HttpClient client = new DefaultHttpClient();
+		// 我们要爬取的一个地址，这里可以从数据库中抽取数据，然后利用循环，可以爬取一个URL队列
+		String url = getUrl();
+		do{
+		// 抓取的数据
+		String html = URLFecter.URLParser(client, url);
+		CrawlerDocToDataReq reqHtml = new CrawlerDocToDataReq();
+		//页面数据处理
+		reqHtml.setHtml(html);
+		reqHtml.setCode(code);
+		CrawlerDocToDataRes resHtml = crawlerService.docToData(reqHtml);
+		CrawlerSetDataReq req = new CrawlerSetDataReq();
+		// 将抓取的数据插入数据库
+		req.setCode(code);
+		req.setList(resHtml.getData());
+		crawlerService.setData(req);
+		FlipReq reqFlip = new FlipReq();
+		reqFlip.setHtml(html);
+		reqFlip.setCode(code);
+		reqFlip.setUrl(url);
+		FlipRes resFlip = crawlerService.flip(reqFlip);
+		url = resFlip.getUrl();
+		}while(url!=null);
+	}
 }

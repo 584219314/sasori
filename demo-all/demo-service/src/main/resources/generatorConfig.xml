@@ -32,7 +32,7 @@
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 		<!-- 需要生成的表的名字和将生成的对应的对象名) -->
-		<table tableName="crawler_data" domainObjectName="CrawlerData"
+		<table tableName="zhihu" domainObjectName="Zhihu"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false">

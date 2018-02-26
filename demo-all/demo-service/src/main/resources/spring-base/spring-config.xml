@@ -17,12 +17,13 @@
 	<!-- 加载配置属性文件 -->
 	<context:property-placeholder
 		ignore-unresolvable="true" location="classpath:db.properties" />
-		
-		<!-- 加载日志文件 -->
-<context:property-placeholder
+
+	<!-- 加载日志文件 -->
+	<context:property-placeholder
 		ignore-unresolvable="true" location="classpath:log4j.properties" />
 	<!-- 开启异步任务（同时开启定时器注解扫描） -->
 	<task:annotation-driven />
+	<import resource="classpath:spring-base/spring-task.xml" />
 
 	<!-- 使用@AspectJ风格的切面声明 -->
 	<!-- <aop:aspectj-autoproxy/> -->

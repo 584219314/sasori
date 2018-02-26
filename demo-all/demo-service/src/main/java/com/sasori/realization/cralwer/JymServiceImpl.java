@@ -94,4 +94,10 @@ public class JymServiceImpl extends AbstractCrawlerImpl{
 		return CrawlerEnum.JYM.getCode();
 	}
 
+	@Override
+	protected String getUrl() {
+		// TODO Auto-generated method stub
+		return "https://www.jiaoyimao.com/g4500/";
+	}
+
 }
