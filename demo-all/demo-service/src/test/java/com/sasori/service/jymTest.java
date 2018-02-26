@@ -17,7 +17,9 @@ import com.sasori.model.CrawlerData;
 import com.sasori.model.JdModel;
 import com.sasori.req.CrawlerDocToDataReq;
 import com.sasori.req.CrawlerSetDataReq;
+import com.sasori.req.FlipReq;
 import com.sasori.res.CrawlerDocToDataRes;
+import com.sasori.res.FlipRes;
 
 /**
  * Unit test for simple App.
@@ -33,6 +35,7 @@ public class jymTest extends BaseJunit4Test {
 		HttpClient client = new DefaultHttpClient();
 		// 我们要爬取的一个地址，这里可以从数据库中抽取数据，然后利用循环，可以爬取一个URL队列
 		String url = "https://www.jiaoyimao.com/g4500/";
+		do{
 		// 抓取的数据
 		String html = URLFecter.URLParser(client, url);
 		CrawlerDocToDataReq reqHtml = new CrawlerDocToDataReq();
@@ -45,5 +48,12 @@ public class jymTest extends BaseJunit4Test {
 		req.setCode(code);
 		req.setList(resHtml.getData());
 		crawlerService.setData(req);
+		FlipReq reqFlip = new FlipReq();
+		reqFlip.setHtml(html);
+		reqFlip.setCode(code);
+		reqFlip.setUrl(url);
+		FlipRes resFlip = crawlerService.flip(reqFlip);
+		url = resFlip.getUrl();
+		}while(url!=null);
 	}
 }

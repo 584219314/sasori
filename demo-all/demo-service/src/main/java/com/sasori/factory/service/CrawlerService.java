@@ -27,5 +27,4 @@ public interface CrawlerService {
 	 */
 	FlipRes flip(FlipReq req);
 	
-	LoginRes login(LoginReq req);
 }

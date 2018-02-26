@@ -10,6 +10,13 @@ public class FlipReq implements Serializable{
 	private static final long serialVersionUID = 8084924507481027450L;
 	private String code;
 	private String html;
+	private String url;
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
 	public String getCode() {
 		return code;
 	}

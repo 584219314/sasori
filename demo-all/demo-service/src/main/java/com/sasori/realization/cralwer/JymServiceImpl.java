@@ -1,12 +1,11 @@
 package com.sasori.realization.cralwer;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
+import java.util.Map;
 
-import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -14,11 +13,11 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.druid.util.StringUtils;
+import com.sasori.dao.CrawlerDataMapper;
 import com.sasori.enums.CrawlerEnum;
 import com.sasori.factory.abstractimpl.AbstractCrawlerImpl;
-import com.sasori.factory.service.CrawlerService;
 import com.sasori.model.CrawlerData;
-import com.sasori.model.JdModel;
 import com.sasori.req.CrawlerDocToDataReq;
 import com.sasori.req.CrawlerSetDataReq;
 import com.sasori.req.FlipReq;
@@ -27,22 +26,15 @@ import com.sasori.res.CrawlerDocToDataRes;
 import com.sasori.res.CrawlerSetDataRes;
 import com.sasori.res.FlipRes;
 import com.sasori.res.LoginRes;
-import com.sasori.service.CrawlerDataService;
 
-@Service("djService")
-public class DjServiceImpl extends AbstractCrawlerImpl{
+@Service("jymService")
+public class JymServiceImpl extends AbstractCrawlerImpl{
 
 	@Autowired
-	private CrawlerDataService crawlerDataService;
-	@Override
-	protected String getCode() {
-		return CrawlerEnum.DJ.getCode();
-	}
-
+	private CrawlerDataMapper crawlerDataMapper;
 	@Override
 	public CrawlerSetDataRes setData(CrawlerSetDataReq req) {
-		List<CrawlerData> list = req.getList();
-		crawlerDataService.addList(list);
+		crawlerDataMapper.insertList(req.getList());
 		return new CrawlerSetDataRes();
 	}
 
@@ -54,12 +46,15 @@ public class DjServiceImpl extends AbstractCrawlerImpl{
         //采用Jsoup解析
         Document doc = Jsoup.parse(req.getHtml());
         //获取html标签中的内容
-        Elements elements=doc.select("ul[class=gl-warp clearfix]").select("li[class=gl-item]");
+        Elements elements=doc.select("ul[class=list-con specialList]").select("li[name=goodsItem]");
         for (Element ele:elements) {
-            String bookID=ele.attr("data-sku");
-            String bookPrice=ele.select("div[class=p-price]").select("strong").select("i").text();
-            String bookName=ele.select("div[class=p-name]").select("em").text();
-            String url=ele.select("div[class=p-name]").select("a").attr("href");
+            String bookID=ele.select("span[class=name]").select("span[class=is-account]").attr("data-id");
+            if(StringUtils.isEmpty(bookID)){
+            	continue;
+            }
+            String bookPrice=ele.select("span[class=price]").text();
+            String url=ele.select("span[class=name]").select("span[class=is-account]").select("a").attr("href");
+            String bookName=ele.select("span[class=name]").select("span[class=is-account]").select("a").text();
             //创建一个对象，这里可以看出，使用Model的优势，直接进行封装
             CrawlerData jdModel=new CrawlerData();
             //对象的值
@@ -71,15 +66,32 @@ public class DjServiceImpl extends AbstractCrawlerImpl{
             //将每一个对象的值，保存到List集合中
             data.add(jdModel);
         }
-        //返回数据
         res.setData(data);
 		return res;
 	}
 
 	@Override
 	public FlipRes flip(FlipReq req) {
-		// TODO Auto-generated method stub
-		return null;
+        //采用Jsoup解析
+        Document doc = Jsoup.parse(req.getHtml());
+        String url = null;
+        if(doc.select("a[class=page-btn]")!=null){
+        	url = doc.select("a[class=page-btn]").attr("href");
+        	if(doc.select("a[class=page-btn]").size()>1){
+        		url = doc.select("a[class=page-btn]").eq(1).attr("href");
+        	}
+        }
+        if(req.getUrl().equals(url)){
+        	url =null;
+        }
+		FlipRes res = new FlipRes();
+		res.setUrl(url);
+		return res ;
+	}
+
+	@Override
+	protected String getCode() {
+		return CrawlerEnum.JYM.getCode();
 	}
 
 }

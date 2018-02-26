@@ -1,11 +1,16 @@
 package com.sasori.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.jsoup.Connection;
+import org.jsoup.Connection.Method;
+import org.jsoup.Connection.Response;
+import org.jsoup.Jsoup;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -45,5 +50,12 @@ public class djTest extends BaseJunit4Test {
 		req.setCode(code);
 		req.setList(resHtml.getData());
 		crawlerService.setData(req);
+	}
+	public static void main(String[] args) throws Exception {
+		 Connection conn = Jsoup.connect("https://www.zhihu.com");     
+		 conn.method(Method.GET);     
+		 conn.followRedirects(false);     
+		 Response response = conn.execute();     
+		 System.out.println(response.cookies());    
 	}
 }

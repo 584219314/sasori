@@ -27,13 +27,6 @@ public class CrawlerServiceImpl implements CrawlerService{
 	}
 	@Override
 	public FlipRes flip(FlipReq req) {
-		// TODO Auto-generated method stub
-		return null;
+		return crawlerFactory.getServiceImpl(req.getCode()).flip(req);
 	}
-	@Override
-	public LoginRes login(LoginReq req) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
