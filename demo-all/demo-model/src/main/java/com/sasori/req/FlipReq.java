@@ -11,6 +11,14 @@ public class FlipReq implements Serializable{
 	private String code;
 	private String html;
 	private String url;
+	private int page =0;
+	
+	public int getPage() {
+		return page;
+	}
+	public void setPage(int page) {
+		this.page = page;
+	}
 	public String getUrl() {
 		return url;
 	}

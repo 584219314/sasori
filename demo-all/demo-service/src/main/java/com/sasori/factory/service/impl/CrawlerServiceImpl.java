@@ -34,4 +34,8 @@ public class CrawlerServiceImpl implements CrawlerService{
 	public void main(MainReq req) throws Exception {
 		crawlerFactory.getServiceImpl(req.getCode()).main(req);
 	}
+	@Override
+	public void clearData(String code) {
+		crawlerFactory.getServiceImpl(code).clearData(code);
+	}
 }

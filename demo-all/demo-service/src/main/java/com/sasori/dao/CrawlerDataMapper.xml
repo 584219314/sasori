@@ -147,11 +147,15 @@
 			(
 			#{list.name,jdbcType=VARCHAR},
 			#{list.pice,jdbcType=DECIMAL},
-			#{list.url,jdbcType=VARCHAR}, 
+			#{list.url,jdbcType=VARCHAR},
 			now(),
 			#{list.updateTime,jdbcType=TIMESTAMP},
 			#{list.code,jdbcType=VARCHAR},
 			#{list.codeId,jdbcType=VARCHAR})
 		</foreach>
 	</insert>
+	<select id="crawlerGroup" resultType="java.lang.String"
+		parameterType="java.lang.String">
+		select crawlerGroup(#{code}) from crawler_data
+	</select>
 </mapper>

@@ -8,4 +8,6 @@ public interface CrawlerDataService {
 	void add(CrawlerData model);
 	
 	void addList(List<CrawlerData> list);
+	
+	void crawlerGroup(String code);
 }

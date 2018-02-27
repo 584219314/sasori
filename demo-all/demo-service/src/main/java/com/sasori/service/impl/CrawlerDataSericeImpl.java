@@ -20,7 +20,13 @@ public class CrawlerDataSericeImpl implements CrawlerDataService {
 	}
 	@Override
 	public void addList(List<CrawlerData> list) {
-		crawlerDataMapper.insertList(list);
+		if(list.size()>0){
+			crawlerDataMapper.insertList(list);
+		}
+	}
+	@Override
+	public void crawlerGroup(String code) {
+		 crawlerDataMapper.crawlerGroup(code);
 	}
 
 }

@@ -26,15 +26,16 @@ import com.sasori.res.CrawlerDocToDataRes;
 import com.sasori.res.CrawlerSetDataRes;
 import com.sasori.res.FlipRes;
 import com.sasori.res.LoginRes;
+import com.sasori.service.CrawlerDataService;
 
 @Service("jymService")
 public class JymServiceImpl extends AbstractCrawlerImpl{
 
 	@Autowired
-	private CrawlerDataMapper crawlerDataMapper;
+	private CrawlerDataService crawlerDataService;
 	@Override
 	public CrawlerSetDataRes setData(CrawlerSetDataReq req) {
-		crawlerDataMapper.insertList(req.getList());
+		crawlerDataService.addList(req.getList());
 		return new CrawlerSetDataRes();
 	}
 
@@ -98,6 +99,17 @@ public class JymServiceImpl extends AbstractCrawlerImpl{
 	protected String getUrl() {
 		// TODO Auto-generated method stub
 		return "https://www.jiaoyimao.com/g4500/";
+	}
+
+	@Override
+	public void setDataList(CrawlerDocToDataRes resHtml, CrawlerSetDataReq req) {
+		req.setCode(getCode());
+		req.setList(resHtml.getData());		
+	}
+
+	@Override
+	public void clearData(String code) {
+		crawlerDataService.crawlerGroup(code);
 	}
 
 }

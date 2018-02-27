@@ -10,6 +10,7 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.Connection.Method;
 import org.jsoup.Connection.Response;
+import org.jsoup.helper.StringUtil;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -75,9 +76,14 @@ public abstract class AbstractCrawlerImpl implements CrawlerService,Initializing
 		HttpClient client = new DefaultHttpClient();
 		// 我们要爬取的一个地址，这里可以从数据库中抽取数据，然后利用循环，可以爬取一个URL队列
 		String url = getUrl();
+		int page = 0;
 		do{
 		// 抓取的数据
 		String html = URLFecter.URLParser(client, url);
+		System.out.println(url);
+		if(StringUtil.isBlank(html)){
+			break;
+		}
 		CrawlerDocToDataReq reqHtml = new CrawlerDocToDataReq();
 		//页面数据处理
 		reqHtml.setHtml(html);
@@ -85,15 +91,19 @@ public abstract class AbstractCrawlerImpl implements CrawlerService,Initializing
 		CrawlerDocToDataRes resHtml = crawlerService.docToData(reqHtml);
 		CrawlerSetDataReq req = new CrawlerSetDataReq();
 		// 将抓取的数据插入数据库
-		req.setCode(code);
-		req.setList(resHtml.getData());
+		setDataList(resHtml, req);
 		crawlerService.setData(req);
 		FlipReq reqFlip = new FlipReq();
+		reqFlip.setPage(page);
 		reqFlip.setHtml(html);
 		reqFlip.setCode(code);
 		reqFlip.setUrl(url);
 		FlipRes resFlip = crawlerService.flip(reqFlip);
 		url = resFlip.getUrl();
+		page = resFlip.getPage();
 		}while(url!=null);
+		crawlerService.clearData(code);
 	}
+	
+	public abstract void setDataList(CrawlerDocToDataRes resHtml,CrawlerSetDataReq req);
 }

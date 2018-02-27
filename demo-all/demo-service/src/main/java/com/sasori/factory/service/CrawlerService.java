@@ -34,4 +34,6 @@ public interface CrawlerService {
 	 */
 	void main(MainReq req) throws Exception;
 	
+	void clearData(String code);
+	
 }
