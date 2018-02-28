@@ -81,7 +81,7 @@ public abstract class AbstractCrawlerImpl implements CrawlerService,Initializing
 		// 抓取的数据
 		String html = URLFecter.URLParser(client, url);
 		System.out.println(url);
-		if(StringUtil.isBlank(html)){
+		if(stop(html)){//暂停爬虫
 			break;
 		}
 		CrawlerDocToDataReq reqHtml = new CrawlerDocToDataReq();
@@ -106,4 +106,6 @@ public abstract class AbstractCrawlerImpl implements CrawlerService,Initializing
 	}
 	
 	public abstract void setDataList(CrawlerDocToDataRes resHtml,CrawlerSetDataReq req);
+	
+	public abstract boolean stop(String html);
 }

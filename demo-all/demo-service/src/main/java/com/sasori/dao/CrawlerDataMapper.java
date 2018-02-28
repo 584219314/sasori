@@ -8,7 +8,7 @@ import tk.mybatis.mapper.common.Mapper;
 
 import com.sasori.model.CrawlerData;
 
-public interface CrawlerDataMapper extends Mapper<CrawlerData>{
+public interface CrawlerDataMapper {
     int deleteByPrimaryKey(Integer id);
 
     int insert(CrawlerData record);

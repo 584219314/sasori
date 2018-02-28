@@ -36,6 +36,7 @@ public class JymServiceImpl extends AbstractCrawlerImpl{
 	@Override
 	public CrawlerSetDataRes setData(CrawlerSetDataReq req) {
 		crawlerDataService.addList(req.getList());
+		clearData(getCode());
 		return new CrawlerSetDataRes();
 	}
 
@@ -74,19 +75,11 @@ public class JymServiceImpl extends AbstractCrawlerImpl{
 	@Override
 	public FlipRes flip(FlipReq req) {
         //采用Jsoup解析
-        Document doc = Jsoup.parse(req.getHtml());
-        String url = null;
-        if(doc.select("a[class=page-btn]")!=null){
-        	url = doc.select("a[class=page-btn]").attr("href");
-        	if(doc.select("a[class=page-btn]").size()>1){
-        		url = doc.select("a[class=page-btn]").eq(1).attr("href");
-        	}
-        }
-        if(req.getUrl().equals(url)){
-        	url =null;
-        }
+		int page = req.getPage()+1;
+        String url = "https://www.jiaoyimao.com/g4500/n"+page+".html";
 		FlipRes res = new FlipRes();
 		res.setUrl(url);
+		res.setPage(page);
 		return res ;
 	}
 
@@ -110,6 +103,14 @@ public class JymServiceImpl extends AbstractCrawlerImpl{
 	@Override
 	public void clearData(String code) {
 		crawlerDataService.crawlerGroup(code);
+	}
+
+	@Override
+	public boolean stop(String html) {
+		if(StringUtils.isEmpty(html)||html.indexOf("page-btn")<0){
+			return true;
+		}
+		return false;
 	}
 
 }

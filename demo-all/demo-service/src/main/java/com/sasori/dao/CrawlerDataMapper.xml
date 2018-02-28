@@ -156,6 +156,6 @@
 	</insert>
 	<select id="crawlerGroup" resultType="java.lang.String"
 		parameterType="java.lang.String">
-		select crawlerGroup(#{code}) from crawler_data
+		select crawlerGroup(#{code}) from dual
 	</select>
 </mapper>

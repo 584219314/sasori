@@ -99,4 +99,10 @@ public class DjServiceImpl extends AbstractCrawlerImpl{
 		
 	}
 
+	@Override
+	public boolean stop(String html) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
