@@ -9,7 +9,7 @@ public class TestServiceImpl implements TestService {
 
 	@Override
 	public void log() {
-		System.out.println("test-----------------------------------------------------------test");
+		System.out.println("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
 	}
 
 }

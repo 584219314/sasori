@@ -158,4 +158,9 @@
 		parameterType="java.lang.String">
 		select crawlerGroup(#{code}) from dual
 	</select>
+	<select id="selectCount" resultType="java.lang.Integer"
+		parameterType="map">
+		select count(name) from crawler_data where name=#{name}
+	</select>	
+	
 </mapper>
