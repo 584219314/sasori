@@ -10,4 +10,6 @@ public interface CrawlerDataService {
 	void addList(List<CrawlerData> list);
 	
 	void crawlerGroup(String code);
+
+	void update();
 }

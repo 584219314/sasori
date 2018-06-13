@@ -24,4 +24,6 @@ public interface CrawlerDataMapper {
 	void insertList(@Param("list")List<CrawlerData> list);
 
 	void crawlerGroup(@Param("code") String code);
+
+	int selectCount(@Param("name")String name);
 }

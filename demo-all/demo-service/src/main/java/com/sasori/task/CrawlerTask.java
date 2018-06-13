@@ -24,9 +24,9 @@ public class CrawlerTask {
 	private CrawlerService crawlerService;
 
 	public void jym() throws Exception {
-/*		CrawlerThread thread = new CrawlerThread(CrawlerEnum.JYM.getCode());
-		new Thread(thread).start();*/
-		CrawlerThread thread1 = new CrawlerThread(CrawlerEnum.ZH.getCode());
-		new Thread(thread1).start();
+		CrawlerThread thread = new CrawlerThread(CrawlerEnum.JYM.getCode());
+		new Thread(thread).start();
+/*		CrawlerThread thread1 = new CrawlerThread(CrawlerEnum.ZH.getCode());
+		new Thread(thread1).start();*/
 	}
 }

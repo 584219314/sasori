@@ -65,12 +65,11 @@ public abstract class HTTPUtils {
 	public static String setProxyIp() {
 		String ipport = null;
 		try {
-			List<String> ipList = new ArrayList<>();
+			List<String> ipList = new ArrayList<String>();
 			InputStream in = new FileInputStream(
-					"C:\\Users\\Administrator\\Desktop\\crawlercity\\resources\\proxyip.txt");// 读取文件的数据。
+					HTTPUtils.class.getClassLoader().getResource("/").getPath()+"/proxyip.txt");// 读取文件的数据。
 			BufferedReader proxyIpReader = new BufferedReader(
 					new InputStreamReader(in));
-
 			String ip = "";
 			while ((ip = proxyIpReader.readLine()) != null) {
 				ipList.add(ip);
