@@ -5,6 +5,8 @@
 	<!-- ================站台名称，站台描述，大小图标================ -->
 	<display-name>SpringMVC</display-name>
 	<description>柴可夫斯基模板</description>
+	<absolute-ordering />
+	<async-supported>true</async-supported>
 	<icon>
 		<small-icon>/common/images/favicon.ico</small-icon>
 		<large-icon>/common/images/favicon.ico</large-icon>
