@@ -4,12 +4,13 @@ $(function() {
 
 
     // 首先判断是否 支持 WebSocket
+    var host = window.location.host;
     if('WebSocket' in window) {
-        websocket = new WebSocket("ws://localhost:8020/websocket");
+        websocket = new WebSocket("ws://"+host+"/websocket");
     } else if('MozWebSocket' in window) {
-        websocket = new MozWebSocket("ws://localhost:8020/websocket");
+        websocket = new MozWebSocket("ws://"+host+"/websocket");
     } else {
-        websocket = new SockJS("http://localhost:8020/sockjs/websocket");
+        websocket = new SockJS("http://"+host+"/sockjs/websocket");
     }
 
     // 打开时
@@ -20,7 +21,7 @@ $(function() {
 
     // 处理消息时
     websocket.onmessage = function(evnt) {
-        $("#msg").append("<p>(<font color='red'>" + evnt.data + "</font>)</p>");
+        $("#msg").append("<p>" + evnt.data + "</p>");
         console.log("  websocket.onmessage   ");
     };
 
@@ -38,7 +39,7 @@ $(function() {
     $("#TXBTN").click(function(){
 
         // 获取消息内容
-        var text = $("#tx").val();
+        var text = $("#logPath").val();
 
         // 判断
         if(text == null || text == ""){

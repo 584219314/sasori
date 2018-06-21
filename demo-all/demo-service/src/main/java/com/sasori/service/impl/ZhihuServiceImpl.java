@@ -12,6 +12,7 @@ import com.sasori.service.ZhihuService;
 public class ZhihuServiceImpl implements ZhihuService{
 	@Autowired
 	private ZhihuMapper zhihuMapper;
+
 	@Override
 	public void addList(List<Zhihu> req) {
 		if(req.size()>0){
@@ -22,4 +23,5 @@ public class ZhihuServiceImpl implements ZhihuService{
 	public void zhihuGroup(String code) {
 		zhihuMapper.zhihuGroup(code);		
 	}
+
 }

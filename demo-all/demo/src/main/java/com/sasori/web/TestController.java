@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sasori.model.CrawlerData;
 import com.sasori.service.CrawlerDataService;
+import com.sasori.util.SystemConstants;
 
 
 @Controller
@@ -21,7 +22,7 @@ public class TestController {
 	@Transactional(rollbackFor=Exception.class)
 	public String test(){
 		CrawlerData model = new CrawlerData();
-		model.setName("lsz");
+		model.setName(SystemConstants.file_path);
 		crawlerDataService.add(model);
 		return "test";
 	}
