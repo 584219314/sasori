@@ -13,11 +13,11 @@
 	<name>demo Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
-		<dependency>
+<!-- 		<dependency>
 			<groupId>demo-service</groupId>
 			<artifactId>demo-service</artifactId>
 			<version>${project-version}</version>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>demo-model</groupId>
 			<artifactId>demo-model</artifactId>

@@ -8,22 +8,20 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sasori.model.CrawlerData;
-import com.sasori.service.CrawlerDataService;
-import com.sasori.util.SystemConstants;
 
 
 @Controller
 @RequestMapping("test")
 public class TestController {
 	private Logger log = LoggerFactory.getLogger(TestController.class);
-	@Autowired
-	private CrawlerDataService crawlerDataService;
+/*	@Autowired
+	private CrawlerDataService crawlerDataService;*/
 	@RequestMapping("/demo")
 	@Transactional(rollbackFor=Exception.class)
 	public String test(){
 		CrawlerData model = new CrawlerData();
-		model.setName(SystemConstants.file_path);
-		crawlerDataService.add(model);
+/*		model.setName(SystemConstants.file_path);
+		crawlerDataService.add(model);*/
 		return "test";
 	}
 }
